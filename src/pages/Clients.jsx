@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { t } from '../utils/translations';
-import { Plus, Trash2, Mail, Phone, MapPin, Search, UserPlus } from 'lucide-react';
+import { Plus, Trash2, Mail, Phone, MapPin, Search, UserPlus, Users } from 'lucide-react';
 
 const Clients = () => {
   const { clients, lang, deleteClient, addClient } = useAppContext();
