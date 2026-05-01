@@ -20,10 +20,12 @@ export const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div style={{ background: 'var(--primary-gradient)', padding: '8px', borderRadius: '10px', color: 'white' }}>
-          <LayoutGrid size={24} />
-        </div>
-        <span>EL IDRISSI</span>
+        <img 
+          src="/logo.jpeg" 
+          alt="Logo" 
+          style={{ width: '40px', height: '40px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }} 
+        />
+        <span style={{ marginLeft: '12px' }}>EL IDRISSI</span>
       </div>
 
       <nav className="nav-group">
@@ -56,11 +58,13 @@ export const MobileHeader = () => {
   const { toggleLang, lang } = useAppContext();
   return (
     <header className="mobile-header">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <div style={{ background: 'var(--primary-gradient)', padding: '6px', borderRadius: '8px', color: 'white' }}>
-          <LayoutGrid size={18} />
-        </div>
-        <span style={{ fontWeight: '800', color: 'var(--primary)', fontSize: '16px' }}>EL IDRISSI</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <img 
+          src="/logo.jpeg" 
+          alt="Logo" 
+          style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover' }} 
+        />
+        <span style={{ fontWeight: '800', fontSize: '18px' }}>EL IDRISSI</span>
       </div>
       <button 
         className="btn" 

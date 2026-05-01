@@ -39,9 +39,11 @@ const Login = () => {
         {/* Brand Section */}
         <div className="animate-fade-in" style={{ padding: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
-            <div style={{ background: 'var(--primary-gradient)', padding: '16px', borderRadius: '20px', color: 'white', boxShadow: '0 10px 20px rgba(255,140,0,0.3)' }}>
-              <LayoutGrid size={40} />
-            </div>
+            <img 
+              src="/logo.jpeg" 
+              alt="Logo" 
+              style={{ width: '64px', height: '64px', borderRadius: '20px', objectFit: 'cover', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} 
+            />
             <h1 style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-1px' }}>EL IDRISSI</h1>
           </div>
           <h2 className="heading-xl" style={{ fontSize: '56px', lineHeight: '1.1', marginBottom: '24px' }}>
