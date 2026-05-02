@@ -135,7 +135,7 @@ const ConstraintModal = ({ task, timeInHours, onSave, onCancel }) => {
           style={{ marginTop: '15px' }}
         ></textarea>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="modal-actions">
           <button className="btn" style={{ flex: 1, background: '#EEE' }} onClick={onCancel}>Annuler</button>
           <button className="btn btn-primary" style={{ flex: 1 }} onClick={() => onSave(constraints)}>Enregistrer</button>
         </div>

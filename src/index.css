@@ -220,29 +220,7 @@ body {
   margin-bottom: 48px;
 }
 
-/* Modals */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-  background: white;
-  width: 100%;
-  max-width: 600px;
-  border-radius: var(--radius-lg);
-  padding: 48px;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Modals styles moved to App.css for responsive design */
 
 /* Animations */
 @keyframes fadeIn {

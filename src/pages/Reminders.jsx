@@ -88,7 +88,7 @@ const AddReminderModal = ({ onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '450px' }}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <h3 className="heading-xl" style={{ textAlign: 'center', marginBottom: '32px' }}>
           Nouveau <span className="text-gradient">Rappel</span>
         </h3>
@@ -110,7 +110,7 @@ const AddReminderModal = ({ onClose }) => {
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div className="modal-actions">
             <button type="button" className="btn-premium" style={{ flex: 1, background: 'var(--bg-app)', color: 'var(--text-muted)', boxShadow: 'none' }} onClick={onClose}>
               Annuler
             </button>

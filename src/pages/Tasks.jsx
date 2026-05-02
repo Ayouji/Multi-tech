@@ -218,7 +218,7 @@ const TaskFormModal = ({ task, onClose }) => {
               <textarea className="input" placeholder="Détails supplémentaires..." rows="3" style={{ resize: 'none' }} value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})}></textarea>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
+          <div className="modal-actions">
             <button type="button" className="btn-premium" style={{ flex: 1, background: 'var(--bg-app)', color: 'var(--text-muted)', boxShadow: 'none' }} onClick={onClose}>Annuler</button>
             <button type="submit" className="btn-premium" style={{ flex: 2, justifyContent: 'center' }}>{task ? 'Mettre à jour' : 'Planifier la mission'}</button>
           </div>
@@ -233,7 +233,7 @@ const TaskDetailsModal = ({ task, onClose }) => {
   const taskLogs = tracking.filter(tr => tr.task_id === task.id);
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxHeight: '90vh', overflowY: 'auto' }}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <h3 className="heading-xl">Détails de l'intervention</h3>
         <div className="glass-card" style={{ background: 'var(--bg-app)', border: 'none' }}>
           <div style={{ fontSize: '18px', fontWeight: '700', marginBottom: '10px' }}>{task.client_nom || 'Tâche libre'}</div>
@@ -302,7 +302,7 @@ const ArchiveModal = ({ task, onClose }) => {
   };
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', width: '72px', height: '72px', borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', boxShadow: '0 10px 20px -5px rgba(16, 185, 129, 0.2)' }}>
             <CheckCircle size={40} />
@@ -327,7 +327,7 @@ const ArchiveModal = ({ task, onClose }) => {
           </div>
           <input type="file" multiple hidden ref={fileInputRef} onChange={handleImageUpload} accept="image/*" />
         </div>
-        <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
+        <div className="modal-actions">
           <button className="btn-premium" style={{ flex: 1, background: 'var(--bg-app)', color: 'var(--text-muted)', boxShadow: 'none' }} onClick={onClose}>Annuler</button>
           <button className="btn-premium" style={{ flex: 2, justifyContent: 'center' }} onClick={handleArchive}>Clôturer la mission</button>
         </div>
