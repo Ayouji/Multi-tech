@@ -40,10 +40,10 @@ export const AppProvider = ({ children }) => {
       };
 
       const [tData, cData, trData, rData] = await Promise.all([
-        safeJson(tRes,  'tasks'),
-        safeJson(cRes,  'clients'),
+        safeJson(tRes, 'tasks'),
+        safeJson(cRes, 'clients'),
         safeJson(trRes, 'tracking'),
-        safeJson(rRes,  'reminders'),
+        safeJson(rRes, 'reminders'),
       ]);
 
       setTasks(tData);
@@ -156,13 +156,13 @@ export const AppProvider = ({ children }) => {
   const toggleLang = () => setLang(prev => prev === 'fr' ? 'en' : 'fr');
 
   return (
-    <AppContext.Provider value={{ 
-        tasks, addTask, updateTask, deleteTask,
-        clients, addClient, deleteClient,
-        tracking, addTracking,
-        reminders, addReminder, deleteReminder,
-        lang, toggleLang,
-        user, login, logout
+    <AppContext.Provider value={{
+      tasks, addTask, updateTask, deleteTask,
+      clients, addClient, deleteClient,
+      tracking, addTracking,
+      reminders, addReminder, deleteReminder,
+      lang, toggleLang,
+      user, login, logout
     }}>
       {children}
     </AppContext.Provider>
