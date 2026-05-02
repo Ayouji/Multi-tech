@@ -28,11 +28,23 @@ export const AppProvider = ({ children }) => {
         fetch(`${API_URL}/tracking`),
         fetch(`${API_URL}/reminders`)
       ]);
-      
-      const tData = await tRes.json();
-      const cData = await cRes.json();
-      const trData = await trRes.json();
-      const rData = await rRes.json();
+
+      const safeJson = async (res, label) => {
+        if (!res.ok) {
+          const text = await res.text();
+          console.error(`[API] ${label} → ${res.status}:`, text);
+          return [];
+        }
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      };
+
+      const [tData, cData, trData, rData] = await Promise.all([
+        safeJson(tRes,  'tasks'),
+        safeJson(cRes,  'clients'),
+        safeJson(trRes, 'tracking'),
+        safeJson(rRes,  'reminders'),
+      ]);
 
       setTasks(tData);
       setClients(cData);
@@ -65,9 +77,10 @@ export const AppProvider = ({ children }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task)
       });
+      if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setTasks(prev => [data, ...prev]);
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error("Error adding task:", err); }
   };
 
   const updateTask = async (id, updates) => {
@@ -96,9 +109,10 @@ export const AppProvider = ({ children }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(client)
       });
+      if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setClients(prev => [data, ...prev]);
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error("Error adding client:", err); }
   };
 
   const deleteClient = async (id) => {
