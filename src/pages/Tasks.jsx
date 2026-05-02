@@ -161,14 +161,19 @@ const TaskFormModal = ({ task, onClose }) => {
     e.preventDefault();
     if (!formData.task_libre && !formData.clientId && !task) return alert('Sélectionnez un client');
     const client = clients.find(c => c.id === parseInt(formData.clientId || formData.client_id));
+    const { clientId, ...restOfFormData } = formData;
     const taskData = {
-      ...formData,
-      client_id: formData.clientId ? parseInt(formData.clientId) : (task?.client_id || null),
+      ...restOfFormData,
+      client_id: clientId ? parseInt(clientId) : (task?.client_id || null),
       client_nom: client ? client.nom : (task?.client_nom || null),
       duree: formData.task_libre ? 0 : parseInt(formData.duree) || 0,
     };
-    if (task) updateTask(task.id, taskData);
-    else addTask(taskData);
+    if (task) {
+      const { id, created_at, ...updateData } = taskData;
+      updateTask(task.id, updateData);
+    } else {
+      addTask(taskData);
+    }
     onClose();
   };
 
