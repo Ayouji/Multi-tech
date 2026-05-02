@@ -122,22 +122,119 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  z-index: 200;
+  z-index: 1000;
+  animation: overlayFadeIn 0.25s ease;
 }
 
 .modal-content {
-  background: white;
+  background: #ffffff;
   width: 100%;
-  max-width: 450px;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding: 24px;
-  padding-bottom: calc(24px + var(--safe-area-bottom));
-  animation: slideUp 0.3s ease-out;
+  max-width: 100%;
+  border-radius: 28px 28px 0 0;
+  padding: 0 24px calc(90px + var(--safe-area-bottom)) 24px;
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -10px 60px rgba(0,0,0,0.15);
+  animation: sheetSlideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  position: relative;
+}
+
+/* Handle bar pseudo-element becomes top spacer */
+.modal-content::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 4px;
+  min-height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  margin: 20px auto 24px;
+  flex-shrink: 0;
+}
+
+/* Sticky bottom action buttons */
+.modal-actions {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  padding: 16px 0 calc(16px + var(--safe-area-bottom));
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 -1px 0 rgba(0,0,0,0.06);
+  margin: 0 -24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Scrollbar inside modal */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Scrollbar inside modal */
+.modal-content::-webkit-scrollbar {
+  width: 4px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+/* Tablet and desktop: centered dialog */
+@media (min-width: 640px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 24px;
+  }
+  .modal-content {
+    max-width: 520px;
+    border-radius: 28px;
+    padding: 0 32px 32px;
+    max-height: 90vh;
+    animation: dialogPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-content::before {
+    display: none;
+  }
+  .modal-actions {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    padding: 24px 0 0;
+    margin: 0;
+  }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes dialogPopIn {
+  from { transform: scale(0.94) translateY(16px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 .badge {

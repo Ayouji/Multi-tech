@@ -192,7 +192,7 @@ const AddClientModal = ({ onClose }) => {
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div className="modal-actions">
             <button type="button" className="btn-premium" style={{ flex: 1, background: 'var(--bg-app)', color: 'var(--text-muted)', boxShadow: 'none' }} onClick={onClose}>
               Annuler
             </button>
