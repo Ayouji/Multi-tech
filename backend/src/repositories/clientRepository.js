@@ -1,22 +1,40 @@
-const supabase = require('../config/supabase');
+const db = require('../config/database');
+
+const COLUMNS = ['nom', 'ville', 'type_client', 'email', 'telephone'];
+
+const pick = (obj) => {
+  const out = {};
+  for (const key of COLUMNS) {
+    if (obj[key] !== undefined) out[key] = obj[key];
+  }
+  return out;
+};
 
 class ClientRepository {
-  async findAll() {
-    const { data, error } = await supabase.from('clients').select('*').order('created_at', { ascending: false });
-    if (error) throw error;
-    return data;
+  findAll() {
+    return db.prepare('SELECT * FROM clients ORDER BY created_at DESC').all();
   }
 
-  async create(client) {
-    const { data, error } = await supabase.from('clients').insert([client]).select();
-    if (error) throw error;
-    return data[0];
+  findById(id) {
+    return db.prepare('SELECT * FROM clients WHERE id = ?').get(id);
   }
 
-  async delete(id) {
-    const { error } = await supabase.from('clients').delete().eq('id', id);
-    if (error) throw error;
-    return true;
+  create(client) {
+    const payload = pick(client);
+    const keys = Object.keys(payload);
+    if (keys.length === 0) throw new Error('Aucune donnée à insérer');
+
+    const placeholders = keys.map(() => '?').join(', ');
+    const stmt = db.prepare(
+      `INSERT INTO clients (${keys.join(', ')}) VALUES (${placeholders})`
+    );
+    const info = stmt.run(keys.map((k) => payload[k]));
+    return this.findById(info.lastInsertRowid);
+  }
+
+  delete(id) {
+    const info = db.prepare('DELETE FROM clients WHERE id = ?').run(id);
+    return info.changes > 0;
   }
 }
 

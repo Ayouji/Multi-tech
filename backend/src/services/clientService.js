@@ -6,6 +6,9 @@ class ClientService {
   }
 
   async createClient(clientData) {
+    if (!clientData.nom || !clientData.ville) {
+      throw new Error('Le nom et la ville sont requis');
+    }
     return await clientRepository.create(clientData);
   }
 

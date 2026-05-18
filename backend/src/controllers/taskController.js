@@ -6,7 +6,6 @@ class TaskController {
       const tasks = await taskService.getAllTasks();
       res.json(tasks);
     } catch (error) {
-      console.error('[tasks] getAll error:', error);
       res.status(400).json({ error: error.message });
     }
   }
