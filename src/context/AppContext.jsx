@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AppContext = createContext();
-const API_URL = 'http://localhost:5000/api';
+// Utilisez l'IP de votre machine pour que ça marche sur téléphone
+const API_URL = `http://${window.location.hostname}:5000/api`;
+
 
 export const useAppContext = () => useContext(AppContext);
 

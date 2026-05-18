@@ -19,8 +19,8 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/tracking', trackingRoutes);
 app.use('/api/reminders', reminderRoutes);
 
-const server = app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server running on http://localhost:${PORT} and available on your network`);
 });
 
 server.on('error', (err) => {
