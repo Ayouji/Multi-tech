@@ -6,7 +6,14 @@ class TrackingService {
   }
 
   async createTracking(entryData) {
-    return await trackingRepository.create(entryData);
+    if (!entryData.task_id) {
+      throw new Error('task_id est requis');
+    }
+    const payload = {
+      ...entryData,
+      date: entryData.date || new Date().toISOString(),
+    };
+    return await trackingRepository.create(payload);
   }
 
   async deleteTracking(id) {

@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AppContext = createContext();
-// Utilisez l'IP de votre machine pour que ça marche sur téléphone
-const API_URL = `http://${window.location.hostname}:5000/api`;
-
+const API_URL = 'http://localhost:5000/api';
 
 export const useAppContext = () => useContext(AppContext);
 
@@ -30,23 +28,11 @@ export const AppProvider = ({ children }) => {
         fetch(`${API_URL}/tracking`),
         fetch(`${API_URL}/reminders`)
       ]);
-
-      const safeJson = async (res, label) => {
-        if (!res.ok) {
-          const text = await res.text();
-          console.error(`[API] ${label} → ${res.status}:`, text);
-          return [];
-        }
-        const data = await res.json();
-        return Array.isArray(data) ? data : [];
-      };
-
-      const [tData, cData, trData, rData] = await Promise.all([
-        safeJson(tRes, 'tasks'),
-        safeJson(cRes, 'clients'),
-        safeJson(trRes, 'tracking'),
-        safeJson(rRes, 'reminders'),
-      ]);
+      
+      const tData = await tRes.json();
+      const cData = await cRes.json();
+      const trData = await trRes.json();
+      const rData = await rRes.json();
 
       setTasks(tData);
       setClients(cData);
@@ -79,10 +65,9 @@ export const AppProvider = ({ children }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task)
       });
-      if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setTasks(prev => [data, ...prev]);
-    } catch (err) { console.error("Error adding task:", err); }
+    } catch (err) { console.error(err); }
   };
 
   const updateTask = async (id, updates) => {
@@ -111,10 +96,9 @@ export const AppProvider = ({ children }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(client)
       });
-      if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setClients(prev => [data, ...prev]);
-    } catch (err) { console.error("Error adding client:", err); }
+    } catch (err) { console.error(err); }
   };
 
   const deleteClient = async (id) => {
@@ -158,13 +142,13 @@ export const AppProvider = ({ children }) => {
   const toggleLang = () => setLang(prev => prev === 'fr' ? 'en' : 'fr');
 
   return (
-    <AppContext.Provider value={{
-      tasks, addTask, updateTask, deleteTask,
-      clients, addClient, deleteClient,
-      tracking, addTracking,
-      reminders, addReminder, deleteReminder,
-      lang, toggleLang,
-      user, login, logout
+    <AppContext.Provider value={{ 
+        tasks, addTask, updateTask, deleteTask,
+        clients, addClient, deleteClient,
+        tracking, addTracking,
+        reminders, addReminder, deleteReminder,
+        lang, toggleLang,
+        user, login, logout
     }}>
       {children}
     </AppContext.Provider>

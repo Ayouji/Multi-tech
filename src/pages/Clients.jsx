@@ -15,8 +15,8 @@ const Clients = () => {
   };
 
   const filteredClients = clients.filter(c => 
-    (c?.nom || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
-    (c?.ville || '').toLowerCase().includes(searchTerm.toLowerCase())
+    c.nom.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    c.ville.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

@@ -6,6 +6,9 @@ class ReminderService {
   }
 
   async createReminder(reminderData) {
+    if (!reminderData.title || !reminderData.date) {
+      throw new Error('Le titre et la date sont requis');
+    }
     return await reminderRepository.create(reminderData);
   }
 

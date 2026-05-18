@@ -6,7 +6,6 @@ class ClientController {
       const clients = await clientService.getAllClients();
       res.json(clients);
     } catch (error) {
-      console.error('[clients] getAll error:', error);
       res.status(400).json({ error: error.message });
     }
   }
