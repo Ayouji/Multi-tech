@@ -1,0 +1,9 @@
+name = "elidrissi-management"
+compatibility_date = "2024-05-02"
+
+[assets]
+directory = "./dist"
+
+[observability]
+enabled = true
+
